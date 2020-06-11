@@ -1,0 +1,24 @@
+.SocalMedia {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.SocalMedia > * {
+    padding: 5px;
+}
+.SocalMedia > *:hover {
+    cursor: pointer;
+    color: #42c9eb;
+}
+
+@media (max-width: 992px) {
+    .SocalMedia {
+        width: auto;
+        justify-content: center;
+    }
+    .SocalMedia > * {
+        margin: 5px 30px;
+    }
+}
