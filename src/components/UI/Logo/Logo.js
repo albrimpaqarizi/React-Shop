@@ -1,12 +1,13 @@
 import React from "react";
 import logo from "../../../assets/images/logo.svg";
 import classes from "./Logo.module.css";
+import { Link } from "react-router-dom";
 
 const Logo = (props) => (
   <React.Fragment>
-    <a href="/" className={classes.Logo}>
+    <Link to="/" className={classes.Logo}>
       <img src={logo} className={classes.img} alt="ReactJS" />
-    </a>
+    </Link>
   </React.Fragment>
 );
 
