@@ -10,7 +10,6 @@ function NavigationItem(props) {
         to={props.link}
         activeClassName={classes.active}
         onClick={props.clicked}
-        style={{ textDecoration: "none" }}
       >
         {props.children}
       </NavLink>

@@ -23,7 +23,7 @@
   padding: 2px;
 }
 .navLink a {
-  text-decoration: none;
+  text-decoration: none !important;
   font-size: 1.1rem;
   font-weight: bold;
 }
@@ -63,7 +63,7 @@
 .categories {
   display: block;
   padding: 0.4rem 1rem;
-  text-decoration: none;
+  text-decoration: none !important;
   padding-left: 0;
   color: gray;
   font-family: "Roboto";

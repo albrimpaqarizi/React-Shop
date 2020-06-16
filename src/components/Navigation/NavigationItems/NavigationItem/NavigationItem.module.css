@@ -15,12 +15,14 @@
   font-weight: normal;
   text-transform: capitalize;
   border-bottom: 2px solid transparent;
+  text-decoration: none !important;
 }
 
 .NavigationItem a:hover,
 .NavigationItem a.active {
   border-color: rgb(66, 201, 235);
-  text-decoration: none;
+  text-decoration: none !important;
+  color: black !important;
 }
 
 @media (max-width: 992px) {

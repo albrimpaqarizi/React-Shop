@@ -6,7 +6,7 @@ import NavigationItems from "../NavigationItems/NavigationItems";
 import Logo from "../../UI/Logo/Logo";
 import ShopCartIcon from "../../UI/ShoppingCartIcon";
 import Search from "../../UI/Search/Search";
-import DrawerToggle from "../DrawerToggle";
+import DrawerToggle from "../DrawerToggle/DrawerToggle";
 
 const useStyles = makeStyles({
   appBar: {

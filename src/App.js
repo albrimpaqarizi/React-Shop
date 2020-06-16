@@ -10,7 +10,7 @@ import NewArrivals from "./containers/NewArrivals/NewArrivals";
 
 function App() {
   return (
-    <div>
+    <React.Fragment>
       <Router>
         <Layout>
           <Switch>
@@ -22,7 +22,7 @@ function App() {
           </Switch>
         </Layout>
       </Router>
-    </div>
+    </React.Fragment>
   );
 }
 
