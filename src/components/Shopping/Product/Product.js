@@ -8,23 +8,38 @@ import {
   Typography,
   IconButton,
   Grid,
+  CardActions,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import ShoppingBasketRoundedIcon from "@material-ui/icons/ShoppingBasketRounded";
 import "./Product.css";
 
 const useStyles = makeStyles({
   media: {
     height: "200px",
   },
-  button: {
-    "&:focus": {
-      outline: "none !important",
-    },
-  },
   cardContent: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
+    height: "50px",
+  },
+  cardActions: {
+    display: "flex",
+    flexFlow: "row",
+    justifyContent: "space-between",
+    alignContent: "center",
+    paddingLeft: "20px",
+    paddingRight: "20px",
+  },
+  button: {
+    "&:hover": {
+      backgroundColor: "lightgrey !important ",
+    },
+  },
+  iconButton: {
+    color: "black",
   },
 });
 
@@ -33,7 +48,7 @@ export default function Product(props) {
   return (
     <Grid item sm={6} md={4}>
       <Card>
-        <CardActionArea className={classes.button}>
+        <CardActionArea>
           <CardMedia
             className={classes.media}
             image={cardimg}
@@ -41,16 +56,24 @@ export default function Product(props) {
           />
         </CardActionArea>
         <CardContent className={classes.cardContent}>
-          <Typography gutterBottom variant="h5" component="h4">
+          <Typography variant="h6" display="block" gutterBottom>
             {props.title}
+          </Typography>
+        </CardContent>
+        <CardActions className={classes.cardActions}>
+          <Typography variant="button" display="block" gutterBottom>
+            {props.price} $
           </Typography>
           <IconButton
             aria-label="add to shopping cart"
             className={classes.button}
           >
-            <AddShoppingCartIcon />
+            <ShoppingBasketRoundedIcon
+              fontSize="small"
+              className={classes.iconButton}
+            />
           </IconButton>
-        </CardContent>
+        </CardActions>
       </Card>
     </Grid>
   );

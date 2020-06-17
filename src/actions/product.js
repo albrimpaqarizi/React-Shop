@@ -1,5 +1,18 @@
 import axios from "../axios";
 
+// export const sortByName = (sortType) => {
+//   return {
+//     type: "SORT_BY_NAME",
+//     sortType,
+//   };
+// };
+// export const sortByPrice = (sortType) => {
+//   return {
+//     type: "SORT_BY_PRICE",
+//     sortType,
+//   };
+// };
+
 const fetchProductsStarted = () => {
   return {
     type: "FETCH_PRODUCTS_STARTED",
@@ -16,6 +29,19 @@ const fetchProductsFailed = () => {
     type: "FETCH_PRODUCTS_FAILED",
   };
 };
+
+// export const searchFilter = (searchTerm) => {
+//   return {
+//     type: "SEARCH_FILTER",
+//     searchTerm,
+//   };
+// };
+// export const searchFilter = (searchTerm) => {
+//   return {
+//     type: "SEARCH_FILTER",
+//     searchTerm,
+//   };
+// };
 
 export const fetchAllProducts = () => async (dispatch) => {
   dispatch(fetchProductsStarted());

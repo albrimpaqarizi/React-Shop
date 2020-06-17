@@ -1,37 +1,61 @@
-import React, { useEffect } from "react";
-import { Container, Grid } from "@material-ui/core";
-import {
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-} from "mdbreact";
+import React, { useState } from "react";
+import { Container, Grid, Box, Typography } from "@material-ui/core";
 // import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "../../components/Shopping/Pagination";
+import SortBy from "../../components/Shopping/SortBy";
 import Product from "../../components/Shopping/Product/Product";
 import ProductRate from "../../components/Shopping/ProductRate/ProductRate";
 import ProductCategories from "../../components/Shopping/ProductCategories/ProductCategories";
 import Breadcrumbs from "../../components/UI/Breadcrumbs/Breadcrumbs";
 import ProductTag from "../../components/UI/ProductTag/ProductTag";
-import Search from "../../components/UI/Search/Search";
-import Spinner from "../../components/UI/Spinner/Spinner";
+import Search from "../../components/Shopping/SearchFilter";
 import { useSelector, useDispatch } from "react-redux";
+import { useInput } from "../../components/UI/Hooks/useInput";
 
 import "./Shop.css";
-import { fetchAllProducts } from "../../actions/product";
 
 function Shop() {
-  const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
+  const products = useSelector((state) => state.products);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [proPerPage, handleProPerPage] = useInput(3);
+  // const [searchResults, setSearchResults] = useState([]);
+  const productsList = products.productsList;
 
-  console.log("product ", products);
-  const getProducts = () => {
-    dispatch(fetchAllProducts());
+  const changeCurrentPage = (event, value) => {
+    setCurrentPage(value);
   };
 
-  useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const results = products.products.filter((item) =>
+  //     item.title.toLowerCase().includes(searchTerm)
+  //   );
+  //   setSearchResults(results);
+  // }, [searchTerm, products]);
+
+  const searchFilter = (searchText) => {
+    dispatch({ type: "SEARCH_FILTER", searchTerm: searchText });
+    // setSearchResults(results);
+    setCurrentPage(1);
+    console.log("search term ", searchText);
+  };
+
+  const searchDefaultFilter = () => {
+    dispatch({ type: "RESET_SEARCH_FILTER" });
+    // setSearchResults(products.products);
+    setCurrentPage(1);
+  };
+
+  const productsTotal = productsList.length;
+  const totalPage = Math.ceil(productsTotal / proPerPage);
+  let indexCalculation =
+    proPerPage > productsTotal ? productsTotal : proPerPage;
+  const indexOfLast = currentPage * indexCalculation;
+  const indexOfFirst = indexOfLast - indexCalculation;
+
+  // console.log("search result ", searchResults);
+  // console.log("shop product ", products.productsList);
+  // console.log("index first ", indexOfFirst, indexOfLast);
 
   return (
     <div>
@@ -42,24 +66,24 @@ function Shop() {
         </div>
       </div>
       <Container>
-        <div className="row ">
-          <div className="col-sm-12 col-md-3">
-            <div className="my-3 mb-5">
-              <Search />
-              <button className="btn" onClick={getProducts}>
-                Kliko
-              </button>
-            </div>
+        <Box display="flex" flexWrap="wrap">
+          <Grid item xs={12} md={3}>
+            <Box component="div" mt={3} mb={5}>
+              <Search
+                searchDefaultFilter={searchDefaultFilter}
+                searchFilter={searchFilter}
+              />
+            </Box>
 
-            <div className="my-3 mb-5">
+            <Box component="div" mt={3} mb={5}>
               <h4 className="titleCategories">Product categories</h4>
               <ul className="nav flex-column ">
                 <ProductCategories />
                 <ProductCategories />
               </ul>
-            </div>
+            </Box>
 
-            <div className="my-3 mb-5">
+            <Box component="div" mt={3} mb={5}>
               <h4 className="titleCategories">Product tags</h4>
               <ul className="nav flex ">
                 <ProductTag tag="Accessories" />
@@ -68,65 +92,62 @@ function Shop() {
                 <ProductTag tag="sport" />
                 <ProductTag tag="girls" />
               </ul>
-            </div>
+            </Box>
 
-            <div className="my-3 mb-5">
+            <Box component="div" mt={3} mb={5}>
               <h4 className="titleCategories">Top rated products</h4>
               <ul className="nav flex-column ">
                 <ProductRate />
                 <ProductRate />
               </ul>
-            </div>
-          </div>
+            </Box>
+          </Grid>
 
-          <div className="col-sm-12 col-md-9">
+          <Grid item xs={12} md={9}>
             <Grid
               container
               direction="row"
               justify="center"
               alignItems="center"
             >
-              <div className="col-12">
-                <div className="d-flex justify-content-between py-3">
-                  <h4 className="showResult py-2 ">
-                    Showing result
-                    {/* {indexOfFirstPost + 1}–{indexOfLastPost + 1} of{" "} */}
-                    {/* {this.props.productsDB.length}  */}
-                  </h4>
-                  <MDBDropdown>
-                    <MDBDropdownToggle caret color=" grey lighten-5">
-                      {" "}
-                      Default sort
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu basic>
-                      <MDBDropdownItem>AZ</MDBDropdownItem>
-                      <MDBDropdownItem>Date</MDBDropdownItem>
-                      <MDBDropdownItem>Price</MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </div>
-              </div>
+              <Box
+                width={1}
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+                my={2}
+              >
+                <Typography variant="h6" component="h5">
+                  Showing {""}
+                  {indexOfFirst + 1}–{indexOfLast + 1} of {""}
+                  {productsTotal} result
+                </Typography>
+                <SortBy />
+              </Box>
               <Grid container spacing={3}>
-                {products.loading ? (
-                  <Spinner />
-                ) : (
-                  products.products.map((item) => {
-                    return <Product key={item.id} title={item.title} />;
-                  })
-                )}
+                {productsList.slice(indexOfFirst, indexOfLast).map((item) => {
+                  return (
+                    <Product
+                      key={item.id}
+                      title={item.title}
+                      price={item.price}
+                    />
+                  );
+                })}
               </Grid>
               <Grid item xs>
                 <Pagination
-                // productPerPage={this.state.productPerPage}
-                // totalProduct={this.props.productsDB.length}
-                // paginate={this.paginate}
-                // currentPage={this.state.currentPage}
-                // proPerPage={this.proPerPage}
+                  handleCurrentPage={changeCurrentPage}
+                  currentPage={currentPage}
+                  totalPage={totalPage}
+                  proPerPage={proPerPage}
+                  handleProPerPage={handleProPerPage}
                 />
               </Grid>
             </Grid>
-          </div>
-        </div>
+          </Grid>
+        </Box>
       </Container>
     </div>
   );

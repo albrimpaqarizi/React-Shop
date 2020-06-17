@@ -5,7 +5,6 @@ import "./Toolbar.css";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import Logo from "../../UI/Logo/Logo";
 import ShopCartIcon from "../../UI/ShoppingCartIcon";
-import Search from "../../UI/Search/Search";
 import DrawerToggle from "../DrawerToggle/DrawerToggle";
 
 const useStyles = makeStyles({
@@ -32,7 +31,6 @@ function Toolbar(props) {
           <NavigationItems />
         </div>
         <div className="navIcon">
-          <Search />
           <ShopCartIcon />
           <DrawerToggle clicked={props.drawerToggle} />
         </div>

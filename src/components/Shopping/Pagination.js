@@ -1,19 +1,50 @@
 import React from "react";
 import Pagination from "@material-ui/lab/Pagination";
-import { Box } from "@material-ui/core";
+import {
+  Box,
+  FormControl,
+  Select,
+  MenuItem,
+  FormHelperText,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { useToggle } from "../UI/Hooks/useToggle";
 
-export default function PaginationShop() {
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    minWidth: 120,
+    padding: "5px",
+  },
+}));
+
+export default function PaginationShop(props) {
+  const [open, setOpen] = useToggle(false);
+  const classes = useStyles();
+
   return (
-    <Box display="flex" my={1}>
+    <Box display="flex" my={2}>
       <Box width={1 / 4} mr="auto">
-        <select className="p-1 btn w-50 text-capitalize">
-          <option value="2">Product 2</option>
-          <option value="4">Product 4</option>
-          <option value="6">Product 6</option>
-          <option value="8">Product 8</option>
-        </select>
+        <FormControl size="small" className={classes.formControl}>
+          <Select
+            open={open}
+            onClose={setOpen}
+            onOpen={setOpen}
+            value={props.proPerPage}
+            onChange={props.handleProPerPage}
+          >
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={7}>7</MenuItem>
+            <MenuItem value={10}>10</MenuItem>
+          </Select>
+          <FormHelperText>Product per page</FormHelperText>
+        </FormControl>
       </Box>
-      <Pagination count={10} />
+      <Pagination
+        count={props.totalPage}
+        page={props.currentPage}
+        onChange={props.handleCurrentPage}
+      />
     </Box>
   );
 }
