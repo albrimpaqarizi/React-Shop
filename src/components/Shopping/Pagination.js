@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Pagination from "@material-ui/lab/Pagination";
 import {
   Box,
@@ -9,6 +9,9 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useToggle } from "../UI/Hooks/useToggle";
+import { useInput } from "../UI/Hooks/useInput";
+import { useDispatch } from "react-redux";
+import { setProPerPage } from "../../actions/product";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -18,8 +21,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PaginationShop(props) {
-  const [open, setOpen] = useToggle(false);
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const [open, setOpen] = useToggle(false);
+  const [proPerPage, handleProPerPage] = useInput(props.proPerPage);
+
+  useEffect(() => {
+    dispatch(setProPerPage(proPerPage));
+  }, [dispatch, proPerPage]);
 
   return (
     <Box display="flex" my={2}>
@@ -29,8 +38,8 @@ export default function PaginationShop(props) {
             open={open}
             onClose={setOpen}
             onOpen={setOpen}
-            value={props.proPerPage}
-            onChange={props.handleProPerPage}
+            value={proPerPage}
+            onChange={handleProPerPage}
           >
             <MenuItem value={3}>3</MenuItem>
             <MenuItem value={5}>5</MenuItem>

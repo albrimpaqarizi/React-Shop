@@ -1,17 +1,17 @@
 import axios from "../axios";
 
-// export const sortByName = (sortType) => {
-//   return {
-//     type: "SORT_BY_NAME",
-//     sortType,
-//   };
-// };
-// export const sortByPrice = (sortType) => {
-//   return {
-//     type: "SORT_BY_PRICE",
-//     sortType,
-//   };
-// };
+export const sortByName = (sortType) => {
+  return {
+    type: "SORT_BY_NAME",
+    sortType,
+  };
+};
+export const sortByPrice = (sortType) => {
+  return {
+    type: "SORT_BY_PRICE",
+    sortType,
+  };
+};
 
 const fetchProductsStarted = () => {
   return {
@@ -30,24 +30,30 @@ const fetchProductsFailed = () => {
   };
 };
 
-// export const searchFilter = (searchTerm) => {
-//   return {
-//     type: "SEARCH_FILTER",
-//     searchTerm,
-//   };
-// };
-// export const searchFilter = (searchTerm) => {
-//   return {
-//     type: "SEARCH_FILTER",
-//     searchTerm,
-//   };
-// };
+export const setProPerPage = (setNr) => {
+  return {
+    type: "SET_PRO_PER_PAGE",
+    setNr,
+  };
+};
+
+export const searchFilter = (searchTerm) => {
+  return {
+    type: "SEARCH_FILTER",
+    searchTerm,
+  };
+};
+export const searchResetFilter = () => {
+  return {
+    type: "RESET_SEARCH_FILTER",
+  };
+};
 
 export const fetchAllProducts = () => async (dispatch) => {
   dispatch(fetchProductsStarted());
   try {
     const response = await axios.get("/products.json");
-    console.log("test", response);
+    console.log("fetch data", response);
     if (response.data.length !== 0) {
       const payload = {
         products: response.data,

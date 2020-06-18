@@ -1,5 +1,5 @@
-import React from "react";
-import cardimg from "../../../assets/images/img1.jpg";
+import React, { useState, useEffect } from "react";
+import cardimg from "../../assets/images/img1.jpg";
 import {
   Card,
   CardContent,
@@ -11,9 +11,9 @@ import {
   CardActions,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import ShoppingBasketRoundedIcon from "@material-ui/icons/ShoppingBasketRounded";
-import "./Product.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../actions/cart";
 
 const useStyles = makeStyles({
   media: {
@@ -41,10 +41,29 @@ const useStyles = makeStyles({
   iconButton: {
     color: "black",
   },
+  iconActive: {
+    color: "green !important",
+  },
 });
 
 export default function Product(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const [inCart, setinCart] = useState(false);
+  const cartList = useSelector((state) => state.cart.cart);
+  const { id } = props.item;
+
+  useEffect(() => {
+    let isInCart = cartList.some((el) => {
+      return el.product.id === id;
+    });
+    setinCart(isInCart);
+  }, [cartList, id]);
+
+  const addItemToCart = (e) => {
+    e.preventDefault();
+    dispatch(addToCart(props.item));
+  };
   return (
     <Grid item sm={6} md={4}>
       <Card>
@@ -67,10 +86,11 @@ export default function Product(props) {
           <IconButton
             aria-label="add to shopping cart"
             className={classes.button}
+            onClick={addItemToCart}
           >
             <ShoppingBasketRoundedIcon
               fontSize="small"
-              className={classes.iconButton}
+              className={(classes.iconButton, inCart ? classes.iconActive : "")}
             />
           </IconButton>
         </CardActions>

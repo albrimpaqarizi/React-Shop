@@ -1,59 +1,3 @@
-.fullScreenBreadcrumb {
-  background-image: url("../../assets/images/shop3.jpg");
-  height: 60vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.breadcrumbs {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white !important;
-  font-family: "Courier New", Courier, monospace;
-  letter-spacing: 1px;
-  text-align: center;
-}
-.breadcrumbs h1 {
-  font-size: 3.5rem;
-  font-weight: bold;
-}
-.navLink {
-  padding: 2px;
-}
-.navLink a {
-  text-decoration: none !important;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-.navLinkBack {
-  color: rgb(161, 161, 161) !important;
-}
-
-.navLinkActive {
-  color: white !important;
-}
-
-.navLinkBack:hover {
-  color: white !important;
-}
-
-.navLinkActive:hover {
-  cursor: text;
-}
-@media (max-width: 768.98px) {
-  .breadcrumbs {
-    top: 40%;
-  }
-  .breadcrumbs h1 {
-    font-size: 2rem;
-  }
-  .navLink a {
-    font-size: 0.9rem;
-  }
-}
-
 .titleCategories {
   font-family: "Roboto";
   color: #000;
@@ -71,12 +15,6 @@
 }
 .categories:hover {
   color: #d3d3d3;
-}
-.showResult {
-  font-family: "Roboto";
-  color: #000;
-  font-weight: 500;
-  font-size: 18px;
 }
 .img {
   width: 60px;

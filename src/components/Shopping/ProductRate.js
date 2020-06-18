@@ -1,5 +1,5 @@
 import React from "react";
-import img from "../../../assets/images/img1.jpg";
+import img from "../../assets/images/img1.jpg";
 import "./ProductRate.css";
 
 function ProductRate() {

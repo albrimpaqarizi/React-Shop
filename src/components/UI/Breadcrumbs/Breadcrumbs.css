@@ -1,0 +1,29 @@
+.fullScreenBreadcrumb {
+  background-image: url("../../../assets/images/shop3.jpg");
+  height: 60vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.breadcrumbs {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white !important;
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.breadcrumbs h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+@media (max-width: 768.98px) {
+  .breadcrumbs {
+    top: 40%;
+  }
+  .breadcrumbs h1 {
+    font-size: 2rem;
+  }
+}

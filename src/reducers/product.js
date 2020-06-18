@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const productReducer = (state = initialState, action) => {
-  const oldProductList = [...state.products];
+  const oldProductList = [...state.productsList];
   switch (action.type) {
     case "FETCH_PRODUCTS_STARTED":
       return {
@@ -15,6 +15,7 @@ const productReducer = (state = initialState, action) => {
       };
     case "FETCH_PRODUCTS_SUCCESS":
       return {
+        ...state,
         products: [...action.payload.products],
         productsList: [...action.payload.products],
         loading: false,
@@ -74,7 +75,13 @@ const productReducer = (state = initialState, action) => {
     case "RESET_SEARCH_FILTER":
       return {
         ...state,
-        productsList: [...oldProductList],
+        productsList: [...state.products],
+      };
+
+    case "SET_PRO_PER_PAGE":
+      return {
+        ...state,
+        proPerPage: action.setNr,
       };
     default:
       return state;

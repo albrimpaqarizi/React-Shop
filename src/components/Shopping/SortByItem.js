@@ -7,7 +7,7 @@ export default function PaginationShop(props) {
   const [isAscending, setAscending] = useToggle(true);
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch({ type: props.sortAction, sortType: isAscending });
+    dispatch(props.sortAction(isAscending));
     setAscending();
   };
   return (

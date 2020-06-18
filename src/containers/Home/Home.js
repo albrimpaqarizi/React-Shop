@@ -19,7 +19,7 @@ function Home() {
         </Container>
       </div>
 
-      <div className={classes.fullScreenTwo}>
+      {/* <div className={classes.fullScreenTwo}>
         <Container>
           <div className={classes.contentPhotoTwo}>
             <h1>Furniture fit for the modern urban life. Start shopping.</h1>
@@ -31,7 +31,7 @@ function Home() {
             </Fab>
           </div>
         </Container>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -35,7 +35,7 @@ export default function SearchFilter(props) {
   const classes = useStyles();
   const [searchTerm, setSearchTerm, resetTerm] = useInput();
 
-  const searchFilterT = (e) => {
+  const searchFilterResult = (e) => {
     e.preventDefault();
     if (searchTerm !== "") {
       props.searchFilter(searchTerm);
@@ -43,7 +43,7 @@ export default function SearchFilter(props) {
   };
   const searchFilterClear = (e) => {
     e.preventDefault();
-    props.searchDefaultFilter();
+    props.searchResetFilter();
     resetTerm("");
   };
 
@@ -70,7 +70,7 @@ export default function SearchFilter(props) {
         type="submit"
         className={classes.iconButton}
         aria-label="search"
-        onClick={searchFilterT}
+        onClick={searchFilterResult}
       >
         <SearchIcon />
       </IconButton>
