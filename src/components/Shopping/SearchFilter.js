@@ -40,6 +40,7 @@ export default function SearchFilter(props) {
     if (searchTerm !== "") {
       props.searchFilter(searchTerm);
     }
+    // resetTerm("");
   };
   const searchFilterClear = (e) => {
     e.preventDefault();

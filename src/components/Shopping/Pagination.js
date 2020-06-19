@@ -50,6 +50,8 @@ export default function PaginationShop(props) {
         </FormControl>
       </Box>
       <Pagination
+        showFirstButton
+        showLastButton
         count={props.totalPage}
         page={props.currentPage}
         onChange={props.handleCurrentPage}

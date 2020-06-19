@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Grid, Box, Typography } from "@material-ui/core";
 import Pagination from "../../components/Shopping/Pagination";
 import SortBy from "../../components/Shopping/SortBy";
@@ -34,6 +34,15 @@ function Shop() {
     setCurrentPage(1);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(searchResetFilter());
+      setCurrentPage(1);
+      console.log("This will run after 1 second!");
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [products.isSearch, dispatch]);
+
   const productsTotal = productsList.length;
   const totalPage = Math.ceil(productsTotal / proPerPage);
   let indexCalculation =
@@ -57,19 +66,21 @@ function Shop() {
             <Box component="div" mt={3} mb={5}>
               <h4 className="titleCategories">Product categories</h4>
               <ul className="nav flex-column ">
-                <ProductCategories />
-                <ProductCategories />
+                <ProductCategories name="Electronics" />
+                <ProductCategories name="Accessories" />
+                <ProductCategories name="Fashion" />
+                <ProductCategories name="Sport" />
               </ul>
             </Box>
 
             <Box component="div" mt={3} mb={5}>
               <h4 className="titleCategories">Product tags</h4>
               <ul className="nav flex ">
-                <ProductTag tag="Accessories" />
-                <ProductTag tag="Electronics" />
-                <ProductTag tag="Fashion" />
-                <ProductTag tag="sport" />
-                <ProductTag tag="girls" />
+                <ProductTag tag="Iphone X" />
+                <ProductTag tag="Galaxy M10" />
+                <ProductTag tag="HM T-Shirt White" />
+                <ProductTag tag="Iphone 8" />
+                <ProductTag tag="Note 9" />
               </ul>
             </Box>
 
@@ -105,16 +116,31 @@ function Shop() {
                 <SortBy />
               </Box>
               <Grid container spacing={3}>
-                {productsList.slice(indexOfFirst, indexOfLast).map((item) => {
-                  return (
-                    <Product
-                      key={item.id}
-                      title={item.title}
-                      price={item.price}
-                      item={item}
-                    />
-                  );
-                })}
+                {products.isSearch ? (
+                  productsList.slice(indexOfFirst, indexOfLast).map((item) => {
+                    return (
+                      <Product
+                        key={item.id}
+                        title={item.title}
+                        price={item.price}
+                        item={item}
+                      />
+                    );
+                  })
+                ) : (
+                  <Box
+                    width={1}
+                    display="flex"
+                    justifyContent="center"
+                    alignContent="center"
+                    textAlign="center"
+                    m={5}
+                  >
+                    <Typography variant="h6" component="h5">
+                      No product, please search again with another word!
+                    </Typography>
+                  </Box>
+                )}
               </Grid>
               <Grid item xs>
                 <Pagination

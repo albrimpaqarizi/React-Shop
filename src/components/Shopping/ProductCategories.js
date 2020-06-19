@@ -1,11 +1,11 @@
 import React from "react";
 import "./ProductCategories.css";
 
-function ProductCategories() {
+function ProductCategories(props) {
   return (
     <li className="nav-item">
       <a className="categories" href="/">
-        Electronics
+        {props.name}
       </a>
     </li>
   );

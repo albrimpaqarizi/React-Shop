@@ -31,12 +31,13 @@ const useStyles = makeStyles({
 function CartItem(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { id, title, price } = props.item;
+  const { id, title, price, inStock } = props.item;
 
   const inCreaseQtyItem = (e) => {
     e.preventDefault();
     dispatch(inCreaseQty(id));
   };
+
   const deCreaseQtyItem = (e) => {
     e.preventDefault();
     dispatch(deCreaseQty(id));
@@ -71,12 +72,17 @@ function CartItem(props) {
           <Typography variant="button" gutterBottom>
             {props.quantity}
           </Typography>
-          <IconButton onClick={inCreaseQtyItem}>
+          <IconButton
+            onClick={inCreaseQtyItem}
+            disabled={props.quantity < inStock ? false : true}
+          >
             <AddIcon />
           </IconButton>
         </Box>
       </TableCell>
-      <TableCell align="center">{props.quantity * price} $</TableCell>
+      <TableCell align="center">
+        {(props.quantity * price).toFixed(2)} $
+      </TableCell>
     </TableRow>
   );
 }

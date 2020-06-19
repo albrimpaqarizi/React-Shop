@@ -3,6 +3,7 @@ const initialState = {
   productsList: [],
   loading: false,
   proPerPage: 3,
+  isSearch: true,
 };
 
 const productReducer = (state = initialState, action) => {
@@ -68,6 +69,13 @@ const productReducer = (state = initialState, action) => {
       let resultsSearch = oldProductList.filter((item) =>
         item.category.toLowerCase().includes(action.searchTerm.toLowerCase())
       );
+      if (resultsSearch.length < 1) {
+        return {
+          ...state,
+          productsList: [...resultsSearch],
+          isSearch: false,
+        };
+      }
       return {
         ...state,
         productsList: [...resultsSearch],
@@ -76,6 +84,7 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         productsList: [...state.products],
+        isSearch: true,
       };
 
     case "SET_PRO_PER_PAGE":

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Breadcrumbs from "../../components/UI/Breadcrumbs/Breadcrumbs";
 import "./Shop.css";
 import Cart from "../../components/Shopping/Cart/Cart";
@@ -10,7 +10,7 @@ function ShoppingCart() {
   const cartList = useSelector((state) => state.cart.cart);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Breadcrumbs name="cart" />
       <Container>
         {cartList.length > 0 ? (
@@ -31,7 +31,7 @@ function ShoppingCart() {
           </Box>
         )}
       </Container>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

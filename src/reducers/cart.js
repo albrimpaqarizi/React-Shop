@@ -7,22 +7,30 @@ const cartReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case "ADD_TO_CART":
-      let isExist = oldCart.some(
-        (item) => item.product.id === action.payload.product.id
-      );
-      let newCart = [];
-      if (isExist) {
-        let updateCart = oldCart.map((item) => {
-          if (item.product.id === action.payload.product.id) {
-            item.quantity += 1;
-          }
-          return item;
-        });
-        newCart = [...updateCart];
-      } else {
-        newCart = [...oldCart];
-        newCart.push(action.payload);
-      }
+      // let isExist = oldCart.some(
+      //   (item) => item.product.id === action.payload.product.id
+      // );
+      // let newCart = [];
+      // if (isExist) {
+      //   let updateCart = oldCart.map((item) => {
+      //     if (item.product.id === action.payload.product.id) {
+      //       item.quantity += 1;
+      //     }
+      //     return item;
+      //   });
+      //   newCart = [...updateCart];
+      // } else {
+      //   newCart = [...oldCart];
+      //   newCart.push(action.payload);
+      // }
+      // return {
+      //   ...state,
+      //   cart: [...newCart],
+      // };
+
+      let newCart = [...oldCart];
+      newCart.push(action.payload);
+
       return {
         ...state,
         cart: [...newCart],
