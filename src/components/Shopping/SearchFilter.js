@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Paper, IconButton, InputBase, Divider } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import ClearIcon from "@material-ui/icons/Clear";
-import { useInput } from "../UI/Hooks/useInput";
+import { useInput } from "../Hooks/useInput";
 
 const useStyles = makeStyles((theme) => ({
   searchForm: {

@@ -4,6 +4,7 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles({
   button: {
@@ -15,13 +16,18 @@ const useStyles = makeStyles({
 
 const ShoppingCartIcon = () => {
   const classes = useStyles();
-  const cartList = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state.cart);
 
   return (
     <Link to="/cart">
       <IconButton aria-label="cart" className={classes.button}>
-        <Badge badgeContent={cartList.length} color="secondary">
+        <Badge badgeContent={cart.cart.length} color="secondary">
           <ShoppingBasketIcon />
+        </Badge>
+      </IconButton>
+      <IconButton aria-label="cart" className={classes.button}>
+        <Badge badgeContent={cart.wishlist.length} color="secondary">
+          <FavoriteIcon />
         </Badge>
       </IconButton>
     </Link>

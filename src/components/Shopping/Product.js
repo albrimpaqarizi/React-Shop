@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import cardimg from "../../assets/images/img1.jpg";
 import {
   Card,
@@ -12,9 +12,16 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import ShoppingBasketRoundedIcon from "@material-ui/icons/ShoppingBasketRounded";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../../actions/cart";
+import {
+  addToCart,
+  removeFromCart,
+  addToWishlist,
+  removeFromWishlist,
+} from "../../Store/Actions/cart";
 import { Link } from "react-router-dom";
+import { useExists } from "../Hooks/useExists";
 
 const useStyles = makeStyles({
   media: {
@@ -50,21 +57,10 @@ const useStyles = makeStyles({
 export default function Product(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [inCart, setinCart] = useState(false);
-  const cartList = useSelector((state) => state.cart.cart);
+  const { cart, wishlist } = useSelector((state) => state.cart);
   const { id } = props.item;
-
-  useEffect(() => {
-    let isInCart = cartList.some((el) => {
-      return el.product.id === id;
-    });
-    setinCart(isInCart);
-  }, [cartList, id]);
-
-  // const addItemToCart = (e) => {
-  //   e.preventDefault();
-  //   dispatch(addToCart(props.item));
-  // };
+  const [inCart] = useExists(cart, id);
+  const [inWishlist] = useExists(wishlist, id);
 
   const ToCart = (e) => {
     e.preventDefault();
@@ -72,6 +68,15 @@ export default function Product(props) {
       dispatch(removeFromCart(props.item.id));
     } else {
       dispatch(addToCart(props.item));
+    }
+  };
+
+  const ToWishlist = (e) => {
+    e.preventDefault();
+    if (inWishlist) {
+      dispatch(removeFromWishlist(props.item.id));
+    } else {
+      dispatch(addToWishlist(props.item));
     }
   };
 
@@ -104,6 +109,19 @@ export default function Product(props) {
             <ShoppingBasketRoundedIcon
               fontSize="small"
               className={(classes.iconButton, inCart ? classes.iconActive : "")}
+            />
+          </IconButton>
+
+          <IconButton
+            aria-label="add to wishlist"
+            className={classes.button}
+            onClick={ToWishlist}
+          >
+            <FavoriteIcon
+              fontSize="small"
+              className={
+                (classes.iconButton, inWishlist ? classes.iconActive : "")
+              }
             />
           </IconButton>
         </CardActions>

@@ -8,10 +8,10 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useToggle } from "../UI/Hooks/useToggle";
-import { useInput } from "../UI/Hooks/useInput";
+import { useToggle } from "../Hooks/useToggle";
+import { useInput } from "../Hooks/useInput";
 import { useDispatch } from "react-redux";
-import { setProPerPage } from "../../actions/product";
+import { setProPerPage } from "../../Store/Actions/cart";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {

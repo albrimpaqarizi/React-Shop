@@ -2,7 +2,6 @@ const initialState = {
   products: [],
   productsList: [],
   loading: false,
-  proPerPage: 3,
   isSearch: true,
 };
 
@@ -85,12 +84,6 @@ const productReducer = (state = initialState, action) => {
         ...state,
         productsList: [...state.products],
         isSearch: true,
-      };
-
-    case "SET_PRO_PER_PAGE":
-      return {
-        ...state,
-        proPerPage: action.setNr,
       };
     default:
       return state;

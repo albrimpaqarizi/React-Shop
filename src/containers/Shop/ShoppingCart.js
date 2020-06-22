@@ -2,28 +2,34 @@ import React, { Fragment } from "react";
 import Breadcrumbs from "../../components/UI/Breadcrumbs/Breadcrumbs";
 import "./Shop.css";
 import Cart from "../../components/Shopping/Cart/Cart";
+import Wishlist from "../../components/Shopping/Wishlist/Wishlist";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Container, Box, Button, Typography } from "@material-ui/core";
+import { Container, Box, Button, Typography, Divider } from "@material-ui/core";
 
 function ShoppingCart() {
-  const cartList = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state.cart.cart);
 
   return (
     <Fragment>
-      <Breadcrumbs name="cart" />
+      <Breadcrumbs name="Shopping Cart" />
       <Container>
-        {cartList.length > 0 ? (
-          <Cart />
+        {cart.length > 0 ? (
+          <div>
+            <Cart />
+            <Divider />
+            <Wishlist />
+          </div>
         ) : (
           <Box
             display="flex"
             flexDirection="row"
             justifyContent="space-evenly"
             alignItems="center"
+            m={3}
           >
             <Typography variant="h3" component="h5">
-              Cart is empty
+              Wishlist and Cart are empty
             </Typography>
             <Button size="large" variant="contained">
               <Link to="/shop">Back to Shop</Link>

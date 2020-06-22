@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu } from "mdbreact";
 import SortByItem from "./SortByItem";
-import { sortByPrice, sortByName } from "../../actions/product";
+import { sortByPrice, sortByName } from "../../Store/Actions/product";
 
 export default function SortBy(props) {
   return (

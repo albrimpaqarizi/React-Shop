@@ -1,6 +1,8 @@
 import React from "react";
 import "./Cart.css";
 import CartItem from "./CartItem";
+import ErrorEmpty from "../../UI/ErrorEmpty";
+
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -14,6 +16,8 @@ import {
   TableBody,
   Button,
   TextField,
+  Divider,
+  Typography,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -44,34 +48,43 @@ function Cart(props) {
   return (
     <Box component="div">
       <Box component="div" my={5} mx={2}>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                <TableCell />
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="start"
+          alignItems="center"
+        >
+          <Typography variant="h5" component="h5">
+            My Cart
+          </Typography>
+        </Box>
+        <Divider />
+        {cartList.length > 0 ? (
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell />
+                  <TableCell />
 
-                <TableCell component="th" scope="row">
-                  Product
-                </TableCell>
-                <TableCell align="center">Price</TableCell>
-                <TableCell align="center">Quantity </TableCell>
-                <TableCell align="center">Subtotal</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cartList.map((item) => {
-                return (
-                  <CartItem
-                    key={item.product.id}
-                    item={item.product}
-                    quantity={item.quantity}
-                  />
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                  <TableCell component="th" scope="row">
+                    Product
+                  </TableCell>
+                  <TableCell align="center">Price</TableCell>
+                  <TableCell align="center">Quantity </TableCell>
+                  <TableCell align="center">Subtotal</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {cartList.map((item) => {
+                  return <CartItem key={item.id} item={item} />;
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <ErrorEmpty errorName="Cart" />
+        )}
       </Box>
       <Box
         display="flex"

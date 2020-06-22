@@ -12,7 +12,7 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-import { addToCart, removeFromCart } from "../../actions/cart";
+import { addToCart, removeFromCart } from "../../Store/Actions/cart";
 
 const useStyles = makeStyles((theme) => ({
   container: {

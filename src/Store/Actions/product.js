@@ -1,4 +1,4 @@
-import axios from "../axios";
+import axios from "../../axios";
 
 export const sortByName = (sortType) => {
   return {
@@ -27,13 +27,6 @@ const fetchProductsSuccess = (payload) => {
 const fetchProductsFailed = () => {
   return {
     type: "FETCH_PRODUCTS_FAILED",
-  };
-};
-
-export const setProPerPage = (setNr) => {
-  return {
-    type: "SET_PRO_PER_PAGE",
-    setNr,
   };
 };
 

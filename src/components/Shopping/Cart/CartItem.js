@@ -17,7 +17,7 @@ import {
   removeFromCart,
   inCreaseQty,
   deCreaseQty,
-} from "../../../actions/cart";
+} from "../../../Store/Actions/cart";
 
 const useStyles = makeStyles({
   icon: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 function CartItem(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { id, title, price, inStock } = props.item;
+  const { id, title, price, inStock, quantity } = props.item;
 
   const inCreaseQtyItem = (e) => {
     e.preventDefault();
@@ -70,19 +70,17 @@ function CartItem(props) {
             <RemoveIcon />
           </IconButton>
           <Typography variant="button" gutterBottom>
-            {props.quantity}
+            {quantity}
           </Typography>
           <IconButton
             onClick={inCreaseQtyItem}
-            disabled={props.quantity < inStock ? false : true}
+            disabled={quantity < inStock ? false : true}
           >
             <AddIcon />
           </IconButton>
         </Box>
       </TableCell>
-      <TableCell align="center">
-        {(props.quantity * price).toFixed(2)} $
-      </TableCell>
+      <TableCell align="center">{(quantity * price).toFixed(2)} $</TableCell>
     </TableRow>
   );
 }

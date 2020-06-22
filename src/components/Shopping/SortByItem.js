@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBDropdownItem } from "mdbreact";
-import { useToggle } from "../UI/Hooks/useToggle";
+import { useToggle } from "../Hooks/useToggle";
 import { useDispatch } from "react-redux";
 
 export default function PaginationShop(props) {

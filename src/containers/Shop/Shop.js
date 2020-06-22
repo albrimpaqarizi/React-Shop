@@ -9,16 +9,18 @@ import ProductTag from "../../components/UI/ProductTag/ProductTag";
 import Search from "../../components/Shopping/SearchFilter";
 import Breadcrumbs from "../../components/UI/Breadcrumbs/Breadcrumbs";
 import { useSelector, useDispatch } from "react-redux";
-import { searchFilter, searchResetFilter } from "../../actions/product";
+import { searchFilter, searchResetFilter } from "../../Store/Actions/product";
 
 import "./Shop.css";
 
 function Shop() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
+  const cart = useSelector((state) => state.cart);
+  const proPerPage = cart.proPerPage;
+
   const [currentPage, setCurrentPage] = useState(1);
   const productsList = products.productsList;
-  const proPerPage = products.proPerPage;
 
   const changeCurrentPage = (event, value) => {
     setCurrentPage(value);
@@ -38,10 +40,11 @@ function Shop() {
     const timer = setTimeout(() => {
       dispatch(searchResetFilter());
       setCurrentPage(1);
-      console.log("This will run after 1 second!");
+      console.log("This will run after 3 second!");
     }, 3000);
     return () => clearTimeout(timer);
   }, [products.isSearch, dispatch]);
+  console.log("shop.js");
 
   const productsTotal = productsList.length;
   const totalPage = Math.ceil(productsTotal / proPerPage);
