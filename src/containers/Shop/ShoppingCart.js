@@ -6,19 +6,21 @@ import Wishlist from "../../components/Shopping/Wishlist/Wishlist";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Container, Box, Button, Typography, Divider } from "@material-ui/core";
+// import { createSelector } from "reselect";
 
 function ShoppingCart() {
-  const cart = useSelector((state) => state.cart.cart);
+  const { cart, wishlist } = useSelector((state) => state.cart);
 
+  console.log("shopping cart.js");
   return (
     <Fragment>
       <Breadcrumbs name="Shopping Cart" />
       <Container>
-        {cart.length > 0 ? (
+        {cart.length > 0 || wishlist.length ? (
           <div>
-            <Cart />
+            <Cart cart={cart} />
             <Divider />
-            <Wishlist />
+            <Wishlist wishlist={wishlist} />
           </div>
         ) : (
           <Box

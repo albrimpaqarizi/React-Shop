@@ -1,7 +1,6 @@
 import React from "react";
 import WishItem from "./WishItem";
 import ErrorEmpty from "../../UI/ErrorEmpty";
-import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
@@ -26,10 +25,12 @@ const useStyles = makeStyles({
   },
 });
 
-function Wishlist() {
+function Wishlist(props) {
   const classes = useStyles();
-  const wishlist = useSelector((state) => state.cart.wishlist);
+  // const { wishlist } = useSelector((state) => state.cart);
+  const { wishlist } = props;
 
+  console.log("wishlist.js");
   return (
     <Box component="div">
       <Box component="div" my={5} mx={2}>
@@ -75,4 +76,4 @@ function Wishlist() {
   );
 }
 
-export default Wishlist;
+export default React.memo(Wishlist);

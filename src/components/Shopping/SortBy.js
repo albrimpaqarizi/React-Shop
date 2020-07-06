@@ -3,7 +3,8 @@ import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu } from "mdbreact";
 import SortByItem from "./SortByItem";
 import { sortByPrice, sortByName } from "../../Store/Actions/product";
 
-export default function SortBy(props) {
+function SortBy() {
+  console.log("sort.js");
   return (
     <MDBDropdown>
       <MDBDropdownToggle caret color=" grey lighten-5">
@@ -18,3 +19,5 @@ export default function SortBy(props) {
     </MDBDropdown>
   );
 }
+
+export default React.memo(SortBy);

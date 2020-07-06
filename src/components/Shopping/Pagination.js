@@ -8,8 +8,8 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useToggle } from "../Hooks/useToggle";
-import { useInput } from "../Hooks/useInput";
+import { useToggle } from "../../Hooks/useToggle";
+import { useInput } from "../../Hooks/useInput";
 import { useDispatch } from "react-redux";
 import { setProPerPage } from "../../Store/Actions/cart";
 
@@ -20,11 +20,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PaginationShop(props) {
+function PaginationShop(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [open, setOpen] = useToggle(false);
   const [proPerPage, handleProPerPage] = useInput(props.proPerPage);
+  console.log("pagination.js");
 
   useEffect(() => {
     dispatch(setProPerPage(proPerPage));
@@ -59,3 +60,5 @@ export default function PaginationShop(props) {
     </Box>
   );
 }
+
+export default React.memo(PaginationShop);

@@ -6,7 +6,7 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { TableRow, TableCell, IconButton, Avatar } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromWishlist, addToCart } from "../../../Store/Actions/cart";
-import { useExists } from "../../Hooks/useExists";
+import { useExists } from "../../../Hooks/useExists";
 
 const useStyles = makeStyles({
   icon: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function WishItem(props) {
+function WishItem(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const cartList = useSelector((state) => state.cart.cart);
@@ -32,6 +32,23 @@ export default function WishItem(props) {
     e.preventDefault();
     dispatch(removeFromWishlist(id));
   };
+
+  // const addItemToCart = useCallback(
+  //   (e) => {
+  //     e.preventDefault();
+  //     dispatch(addToCart(props.item));
+  //   },
+  //   [dispatch, props.item]
+  // );
+  // const removeItemFromWishlist = useCallback(
+  //   (e) => {
+  //     e.preventDefault();
+  //     dispatch(removeFromWishlist(id));
+  //   },
+  //   [dispatch, id]
+  // );
+
+  console.log("wish item.js");
   return (
     <TableRow hover={true}>
       <TableCell size="small" align="center" padding="none">
@@ -49,13 +66,12 @@ export default function WishItem(props) {
       <TableCell align="center">{price} $</TableCell>
       <TableCell align="center">{inStock}</TableCell>
       <TableCell align="center">
-        <IconButton
-          onClick={addItemToCart}
-          disabled={inStock === 0 || inCart ? true : false}
-        >
+        <IconButton onClick={addItemToCart} disabled={inStock === 0 || inCart}>
           <ShoppingBasketIcon />
         </IconButton>
       </TableCell>
     </TableRow>
   );
 }
+
+export default WishItem;

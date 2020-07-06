@@ -1,14 +1,14 @@
 import React from "react";
 import "./ProductCategories.css";
+import { ListItem, ListItemText } from "@material-ui/core";
 
 function ProductCategories(props) {
+  console.log("product categories.js");
   return (
-    <li className="nav-item">
-      <a className="categories" href="/">
-        {props.name}
-      </a>
-    </li>
+    <ListItem>
+      <ListItemText>{props.name}</ListItemText>
+    </ListItem>
   );
 }
 
-export default ProductCategories;
+export default React.memo(ProductCategories);

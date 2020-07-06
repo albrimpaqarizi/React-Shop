@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 function BreadcrumbsNav(props) {
   const classes = useStyles();
+  console.log("Breadcrumbs.js");
   return (
     <div className="fullScreenBreadcrumb">
       <div className="breadcrumbs">
@@ -49,4 +50,4 @@ function BreadcrumbsNav(props) {
   );
 }
 
-export default BreadcrumbsNav;
+export default React.memo(BreadcrumbsNav);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Grid, Box, Typography } from "@material-ui/core";
+import { Container, Grid, Box, Typography, List } from "@material-ui/core";
 import Pagination from "../../components/Shopping/Pagination";
 import SortBy from "../../components/Shopping/SortBy";
 import Product from "../../components/Shopping/Product";
@@ -9,41 +9,38 @@ import ProductTag from "../../components/UI/ProductTag/ProductTag";
 import Search from "../../components/Shopping/SearchFilter";
 import Breadcrumbs from "../../components/UI/Breadcrumbs/Breadcrumbs";
 import { useSelector, useDispatch } from "react-redux";
-import { searchFilter, searchResetFilter } from "../../Store/Actions/product";
+// import { searchFilter, searchResetFilter } from "../../Store/Actions/product";
 
 import "./Shop.css";
 
 function Shop() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
-  const cart = useSelector((state) => state.cart);
-  const proPerPage = cart.proPerPage;
-
+  const { productsList, isSearch } = useSelector((state) => state.products);
+  const { proPerPage } = useSelector((state) => state.cart);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsList = products.productsList;
 
   const changeCurrentPage = (event, value) => {
     setCurrentPage(value);
   };
 
-  const searchFilterShop = (searchTerm) => {
-    dispatch(searchFilter(searchTerm));
-    setCurrentPage(1);
-  };
+  // const searchFilterShop = (searchTerm) => {
+  //   dispatch(searchFilter(searchTerm));
+  //   setCurrentPage(1);
+  // };
 
-  const searchResetFilterShop = () => {
-    dispatch(searchResetFilter());
-    setCurrentPage(1);
-  };
+  // const searchResetFilterShop = () => {
+  //   dispatch(searchResetFilter());
+  //   setCurrentPage(1);
+  // };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(searchResetFilter());
-      setCurrentPage(1);
-      console.log("This will run after 3 second!");
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [products.isSearch, dispatch]);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     dispatch(searchResetFilter());
+  //     setCurrentPage(1);
+  //     console.log("This will run after 3 second!");
+  //   }, 3000);
+  //   return () => clearTimeout(timer);
+  // }, [products.isSearch, dispatch]);
   console.log("shop.js");
 
   const productsTotal = productsList.length;
@@ -61,38 +58,46 @@ function Shop() {
           <Grid item xs={12} md={3}>
             <Box component="div" mt={3} mb={5}>
               <Search
-                searchResetFilter={searchResetFilterShop}
-                searchFilter={searchFilterShop}
+                setCurrentPage={setCurrentPage}
+                // searchResetFilter={searchResetFilterShop}
+                // searchFilter={searchFilterShop}
               />
             </Box>
 
             <Box component="div" mt={3} mb={5}>
-              <h4 className="titleCategories">Product categories</h4>
-              <ul className="nav flex-column ">
+              <Typography variant="h5" gutterBottom>
+                Product categories
+              </Typography>
+              <List>
                 <ProductCategories name="Electronics" />
                 <ProductCategories name="Accessories" />
                 <ProductCategories name="Fashion" />
                 <ProductCategories name="Sport" />
-              </ul>
+              </List>
             </Box>
 
             <Box component="div" mt={3} mb={5}>
-              <h4 className="titleCategories">Product tags</h4>
-              <ul className="nav flex ">
+              <Typography variant="h5" gutterBottom>
+                Product tags
+              </Typography>
+              <List>
                 <ProductTag tag="Iphone X" />
                 <ProductTag tag="Galaxy M10" />
                 <ProductTag tag="HM T-Shirt White" />
                 <ProductTag tag="Iphone 8" />
                 <ProductTag tag="Note 9" />
-              </ul>
+              </List>
             </Box>
 
             <Box component="div" mt={3} mb={5}>
-              <h4 className="titleCategories">Top rated products</h4>
-              <ul className="nav flex-column ">
-                <ProductRate />
-                <ProductRate />
-              </ul>
+              <Typography variant="h5" gutterBottom>
+                Top rated products
+              </Typography>
+              <List>
+                {productsList.slice(0, 3).map((item) => {
+                  return <ProductRate key={item.id} item={item} />;
+                })}
+              </List>
             </Box>
           </Grid>
 
@@ -119,7 +124,7 @@ function Shop() {
                 <SortBy />
               </Box>
               <Grid container spacing={3}>
-                {products.isSearch ? (
+                {isSearch ? (
                   productsList.slice(indexOfFirst, indexOfLast).map((item) => {
                     return (
                       <Product
@@ -161,4 +166,4 @@ function Shop() {
   );
 }
 
-export default Shop;
+export default React.memo(Shop);

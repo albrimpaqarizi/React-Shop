@@ -1,20 +1,56 @@
 import React from "react";
 import img from "../../assets/images/img1.jpg";
 import "./ProductRate.css";
+import {
+  ListItem,
+  // ListItemText,
+  Box,
+  Avatar,
+  // CardMedia,
+  Typography,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
-function ProductRate() {
+const useStyles = makeStyles({
+  media: {
+    width: "65px",
+    height: "65px",
+    marginRight: "3px",
+  },
+  list: {
+    display: "flex",
+    flexFlow: "row",
+    alignContent: "center",
+  },
+});
+
+function ProductRate(props) {
+  console.log("product rate.js");
+  const classes = useStyles();
+  const { id, title, category } = props.item;
   return (
-    <li className="nav-item d-flex flex-row py-1 align-items-center">
-      <img src={img} className="img" alt="Product" />
-      <div className="pl-3">
-        <a className="categories" href="#/">
-          {" "}
-          Name
-        </a>
-        <p className="m-0 py-1"> description </p>
-      </div>
-    </li>
+    <ListItem className={classes.list}>
+      {/* <CardMedia className={classes.media}> */}
+      <Link to={`/shop/${id}`}>
+        <Avatar
+          className={classes.media}
+          variant="square"
+          alt="Product"
+          src={img}
+        />
+      </Link>
+      {/* </CardMedia> */}
+      <Box>
+        <Typography variant="h6" gutterBottom>
+          {title}
+        </Typography>
+        <Typography variant="overline" display="block" gutterBottom>
+          {category}
+        </Typography>
+      </Box>
+    </ListItem>
   );
 }
 
-export default ProductRate;
+export default React.memo(ProductRate);

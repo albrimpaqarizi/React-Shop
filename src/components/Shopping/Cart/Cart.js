@@ -1,9 +1,7 @@
 import React from "react";
-import "./Cart.css";
 import CartItem from "./CartItem";
 import ErrorEmpty from "../../UI/ErrorEmpty";
-
-import { useSelector } from "react-redux";
+import TotalAmount from "./TotalAmount";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
@@ -43,8 +41,10 @@ const useStyles = makeStyles({
 
 function Cart(props) {
   const classes = useStyles();
-  const cartList = useSelector((state) => state.cart.cart);
+  // const cartList = useSelector((state) => state.cart.cart);
+  const cartList = props.cart;
 
+  console.log("cart.js");
   return (
     <Box component="div">
       <Box component="div" my={5} mx={2}>
@@ -66,7 +66,6 @@ function Cart(props) {
                 <TableRow>
                   <TableCell />
                   <TableCell />
-
                   <TableCell component="th" scope="row">
                     Product
                   </TableCell>
@@ -121,33 +120,11 @@ function Cart(props) {
         </Button>
       </Box>
 
-      <div className="divCheckout">
-        <h4 className="cartTotal">Cart totals</h4>
-        <table className="d-flex table table-borderless">
-          <tbody>
-            <tr>
-              <th className="tbTH">Subtotal</th>
-              <td>400$</td>
-            </tr>
-            <tr>
-              <th className="tbTH">Total</th>
-              <td>45 $</td>
-            </tr>
-            <tr>
-              <td colSpan="2">
-                <button
-                  type="button"
-                  className="btn btn-success rounded-pill text-capitalize float-right"
-                >
-                  Proceed to checkout
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <Box display="flex" justifyContent="start" alignItems="center">
+        <TotalAmount cartList={cartList} />
+      </Box>
     </Box>
   );
 }
 
-export default Cart;
+export default React.memo(Cart);

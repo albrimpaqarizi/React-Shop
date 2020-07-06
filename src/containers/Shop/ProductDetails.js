@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { addToCart, removeFromCart } from "../../Store/Actions/cart";
+import { useExists } from "../../Hooks/useExists";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -50,6 +51,7 @@ function ProductDetails(props) {
   const productsList = useSelector((state) => state.products.productsList);
   const cartList = useSelector((state) => state.cart.cart);
   const { id } = props.match.params;
+  // const [inCart] = useExists(cart, id);
 
   useEffect(() => {
     const existsProduct = productsList.some((item) => {
@@ -67,7 +69,7 @@ function ProductDetails(props) {
 
   useEffect(() => {
     let isInCart = cartList.some((el) => {
-      return el.product.id.toString() === id;
+      return el.id.toString() === id;
     });
     setinCart(isInCart);
   }, [cartList, id]);
@@ -86,6 +88,7 @@ function ProductDetails(props) {
     }
   };
 
+  console.log("product details.js");
   return (
     <Fragment>
       <Breadcrumbs name="Product" />

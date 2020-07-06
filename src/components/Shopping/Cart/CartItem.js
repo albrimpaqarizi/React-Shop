@@ -12,12 +12,13 @@ import {
   Avatar,
   Typography,
 } from "@material-ui/core";
-import { useDispatch } from "react-redux";
 import {
   removeFromCart,
   inCreaseQty,
   deCreaseQty,
 } from "../../../Store/Actions/cart";
+// import { useDispatch } from "react-redux";
+import { useActions } from "../../../Hooks/useActions";
 
 const useStyles = makeStyles({
   icon: {
@@ -30,23 +31,27 @@ const useStyles = makeStyles({
 
 function CartItem(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { id, title, price, inStock, quantity } = props.item;
+  const inCreaseQtyItem = useActions(inCreaseQty, id);
+  const deCreaseQtyItem = useActions(deCreaseQty, id);
+  const removeItemFromCart = useActions(removeFromCart, id);
 
-  const inCreaseQtyItem = (e) => {
-    e.preventDefault();
-    dispatch(inCreaseQty(id));
-  };
+  // const inCreaseQtyItem = (e) => {
+  //   e.preventDefault();
+  //   dispatch(inCreaseQty(id));
+  // };
+  // const deCreaseQtyItem = (e) => {
+  //   e.preventDefault();
+  //   dispatch(deCreaseQty(id));
+  // };
 
-  const deCreaseQtyItem = (e) => {
-    e.preventDefault();
-    dispatch(deCreaseQty(id));
-  };
+  // const removeItemFromCart = (e) => {
+  //   e.preventDefault();
+  //   dispatch(removeFromCart(id));
+  // };
+  console.log("cart item.js");
 
-  const removeItemFromCart = (e) => {
-    e.preventDefault();
-    dispatch(removeFromCart(id));
-  };
   return (
     <TableRow hover={true}>
       <TableCell size="small" align="center" padding="none">
