@@ -1,14 +1,6 @@
 import React from "react";
 import img from "../../assets/images/img1.jpg";
-import "./ProductRate.css";
-import {
-  ListItem,
-  // ListItemText,
-  Box,
-  Avatar,
-  // CardMedia,
-  Typography,
-} from "@material-ui/core";
+import { ListItem, Box, Avatar, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -26,7 +18,6 @@ const useStyles = makeStyles({
 });
 
 function ProductRate(props) {
-  console.log("product rate.js");
   const classes = useStyles();
   const { id, title, category } = props.item;
   return (

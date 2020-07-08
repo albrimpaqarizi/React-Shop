@@ -13,19 +13,18 @@ import { useInput } from "../../Hooks/useInput";
 import { useDispatch } from "react-redux";
 import { setProPerPage } from "../../Store/Actions/cart";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   formControl: {
     minWidth: 120,
     padding: "5px",
   },
-}));
+});
 
 function PaginationShop(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [open, setOpen] = useToggle(false);
   const [proPerPage, handleProPerPage] = useInput(props.proPerPage);
-  console.log("pagination.js");
 
   useEffect(() => {
     dispatch(setProPerPage(proPerPage));

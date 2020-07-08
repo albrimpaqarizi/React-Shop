@@ -79,7 +79,7 @@ export default function Product(props) {
       dispatch(addToWishlist(props.item));
     }
   };
-  console.log("product.js");
+
   return (
     <Grid item sm={6} md={4}>
       <Card>

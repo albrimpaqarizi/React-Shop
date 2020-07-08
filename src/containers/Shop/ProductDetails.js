@@ -47,11 +47,10 @@ function ProductDetails(props) {
   const dispatch = useDispatch();
   const [product, setProduct] = useState(null);
   const [isExists, setIsExists] = useState(true);
-  const [inCart, setinCart] = useState(false);
   const productsList = useSelector((state) => state.products.productsList);
   const cartList = useSelector((state) => state.cart.cart);
   const { id } = props.match.params;
-  // const [inCart] = useExists(cart, id);
+  const [inCart] = useExists(cartList, id);
 
   useEffect(() => {
     const existsProduct = productsList.some((item) => {
@@ -67,19 +66,7 @@ function ProductDetails(props) {
     }
   }, [id, productsList]);
 
-  useEffect(() => {
-    let isInCart = cartList.some((el) => {
-      return el.id.toString() === id;
-    });
-    setinCart(isInCart);
-  }, [cartList, id]);
-
-  // const addItemToCart = (e) => {
-  //   e.preventDefault();
-  //   dispatch(addToCart(product));
-  // };
-
-  const ToCart = (e) => {
+  const ToggleCart = (e) => {
     e.preventDefault();
     if (inCart) {
       dispatch(removeFromCart(product.id));
@@ -132,7 +119,7 @@ function ProductDetails(props) {
                   variant="contained"
                   // color="secondary"
                   className={(classes.button, inCart ? classes.iconActive : "")}
-                  onClick={ToCart}
+                  onClick={ToggleCart}
                 >
                   Add to cart
                 </Button>

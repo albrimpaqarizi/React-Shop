@@ -1,17 +1,14 @@
 import React, { Fragment } from "react";
 import Breadcrumbs from "../../components/UI/Breadcrumbs/Breadcrumbs";
-import "./Shop.css";
 import Cart from "../../components/Shopping/Cart/Cart";
 import Wishlist from "../../components/Shopping/Wishlist/Wishlist";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Container, Box, Button, Typography, Divider } from "@material-ui/core";
-// import { createSelector } from "reselect";
 
 function ShoppingCart() {
   const { cart, wishlist } = useSelector((state) => state.cart);
 
-  console.log("shopping cart.js");
   return (
     <Fragment>
       <Breadcrumbs name="Shopping Cart" />

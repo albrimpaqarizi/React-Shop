@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, IconButton, InputBase, Divider } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import ClearIcon from "@material-ui/icons/Clear";
 import { useInput } from "../../Hooks/useInput";
-import { searchFilter, searchResetFilter } from "../../Store/Actions/product";
-import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   searchForm: {
@@ -35,44 +33,23 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchFilter(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { isSearch } = useSelector((state) => state.products);
   const [searchTerm, setSearchTerm, resetTerm] = useInput();
 
   const searchFilterResult = (e) => {
     e.preventDefault();
-    dispatch(searchFilter(searchTerm));
-    props.setCurrentPage(1);
+    if (searchTerm !== "") {
+      props.searchFilter(searchTerm);
+    }
+    // resetTerm("");
   };
-
   const searchFilterClear = (e) => {
     e.preventDefault();
-    dispatch(searchResetFilter());
-    props.setCurrentPage(1);
+    if (searchTerm !== "") {
+      props.searchResetFilter();
+    }
+    resetTerm("");
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(searchResetFilter());
-      props.setCurrentPage(1);
-      console.log("This will run after 3 second!");
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [isSearch, dispatch]);
-
-  // const searchFilterResult = (e) => {
-  //   e.preventDefault();
-  //   if (searchTerm !== "") {
-  //     props.searchFilter(searchTerm);
-  //   }
-  //   // resetTerm("");
-  // };
-  // const searchFilterClear = (e) => {
-  //   e.preventDefault();
-  //   props.searchResetFilter();
-  //   resetTerm("");
-  // };
-  console.log("search.js");
   return (
     <Paper component="form" className={classes.searchForm}>
       <InputBase

@@ -1,20 +1,26 @@
 import React from "react";
-import { MDBDropdownItem } from "mdbreact";
-import { useToggle } from "../../Hooks/useToggle";
+import { MenuItem, ListItemIcon } from "@material-ui/core";
 import { useDispatch } from "react-redux";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 function SortItem(props) {
-  const [isAscending, setAscending] = useToggle(true);
   const dispatch = useDispatch();
+  const { sortAction, handleClose, setToggle, isAscending } = props;
 
   const handleClick = () => {
-    dispatch(props.sortAction(isAscending));
-    setAscending();
+    dispatch(sortAction(isAscending));
+    setToggle();
+    handleClose();
   };
-  console.log("sortitem.js");
 
   return (
-    <MDBDropdownItem onClick={handleClick}>{props.sortBy}</MDBDropdownItem>
+    <MenuItem onClick={handleClick}>
+      <ListItemIcon>
+        {isAscending ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+      </ListItemIcon>
+      {props.sortBy}
+    </MenuItem>
   );
 }
 

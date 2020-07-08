@@ -10,16 +10,15 @@ const TotalAmount = (props) => {
       return prevPrice + item.price * item.quantity;
     }, 0);
     settotal(totalAmount);
-    console.log("total amount");
   }, [cartList]);
 
   return (
     <List component="nav" aria-label="main mailbox folders">
-      <ListItem button>
+      {/* <ListItem button>
         <Typography variant="h5" component="h5">
           Subtotal: 200$
         </Typography>
-      </ListItem>
+      </ListItem> */}
       <ListItem button>
         <Typography variant="h5" component="h5">
           Total: {""} {total.toFixed(2)}

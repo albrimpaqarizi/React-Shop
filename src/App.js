@@ -13,8 +13,6 @@ function App() {
     dispatch(fetchAllProducts());
   }, [dispatch]);
 
-  console.log("app.js");
-
   return <React.Fragment>{loading ? <Spinner /> : <Route />}</React.Fragment>;
 }
 

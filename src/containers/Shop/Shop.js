@@ -5,16 +5,23 @@ import SortBy from "../../components/Shopping/SortBy";
 import Product from "../../components/Shopping/Product";
 import ProductRate from "../../components/Shopping/ProductRate";
 import ProductCategories from "../../components/Shopping/ProductCategories";
-import ProductTag from "../../components/UI/ProductTag/ProductTag";
+import ProductTag from "../../components/Shopping/ProductTag";
 import Search from "../../components/Shopping/SearchFilter";
 import Breadcrumbs from "../../components/UI/Breadcrumbs/Breadcrumbs";
 import { useSelector, useDispatch } from "react-redux";
-// import { searchFilter, searchResetFilter } from "../../Store/Actions/product";
+import { searchFilter, searchResetFilter } from "../../Store/Actions/product";
+import { makeStyles } from "@material-ui/styles";
 
-import "./Shop.css";
+const useStyles = makeStyles({
+  tags: {
+    display: "flex",
+    flexFlow: "row wrap",
+  },
+});
 
 function Shop() {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { productsList, isSearch } = useSelector((state) => state.products);
   const { proPerPage } = useSelector((state) => state.cart);
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,29 +30,27 @@ function Shop() {
     setCurrentPage(value);
   };
 
-  // const searchFilterShop = (searchTerm) => {
-  //   dispatch(searchFilter(searchTerm));
-  //   setCurrentPage(1);
-  // };
+  const searchFilterShop = (searchTerm) => {
+    dispatch(searchFilter(searchTerm));
+    setCurrentPage(1);
+  };
 
-  // const searchResetFilterShop = () => {
-  //   dispatch(searchResetFilter());
-  //   setCurrentPage(1);
-  // };
+  const searchResetFilterShop = () => {
+    dispatch(searchResetFilter());
+    setCurrentPage(1);
+  };
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     dispatch(searchResetFilter());
-  //     setCurrentPage(1);
-  //     console.log("This will run after 3 second!");
-  //   }, 3000);
-  //   return () => clearTimeout(timer);
-  // }, [products.isSearch, dispatch]);
-  console.log("shop.js");
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(searchResetFilter());
+      setCurrentPage(1);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [isSearch, dispatch]);
 
   const productsTotal = productsList.length;
   const totalPage = Math.ceil(productsTotal / proPerPage);
-  let indexCalculation =
+  const indexCalculation =
     proPerPage > productsTotal ? productsTotal : proPerPage;
   const indexOfLast = currentPage * indexCalculation;
   const indexOfFirst = indexOfLast - indexCalculation;
@@ -58,9 +63,8 @@ function Shop() {
           <Grid item xs={12} md={3}>
             <Box component="div" mt={3} mb={5}>
               <Search
-                setCurrentPage={setCurrentPage}
-                // searchResetFilter={searchResetFilterShop}
-                // searchFilter={searchFilterShop}
+                searchResetFilter={searchResetFilterShop}
+                searchFilter={searchFilterShop}
               />
             </Box>
 
@@ -80,7 +84,7 @@ function Shop() {
               <Typography variant="h5" gutterBottom>
                 Product tags
               </Typography>
-              <List>
+              <List className={classes.tags}>
                 <ProductTag tag="Iphone X" />
                 <ProductTag tag="Galaxy M10" />
                 <ProductTag tag="HM T-Shirt White" />

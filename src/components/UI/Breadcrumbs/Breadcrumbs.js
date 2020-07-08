@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 function BreadcrumbsNav(props) {
   const classes = useStyles();
-  console.log("Breadcrumbs.js");
   return (
     <div className="fullScreenBreadcrumb">
       <div className="breadcrumbs">

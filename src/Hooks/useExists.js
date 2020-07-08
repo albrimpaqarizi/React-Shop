@@ -5,12 +5,10 @@ const useExists = (list, id) => {
 
   useEffect(() => {
     let isInList = list.some((el) => {
-      return el.id === id;
+      return el.id.toString() === id.toString();
     });
     setisExistis(isInList);
   }, [list, id]);
-
-  // console.log("exist ", list);
 
   return [isExistis];
 };
